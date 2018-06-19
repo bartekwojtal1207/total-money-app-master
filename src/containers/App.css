@@ -97,7 +97,7 @@ body .container {
 
 .contact .contact__form .contact__form__input {
   border: none;
-  border-bottom: 1px solid cadetblue;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 0;
   outline: none;
   font-family: 'Source Sans Pro', sans-serif;
@@ -125,6 +125,7 @@ body .container {
 .contact .contact__form .contact__form__check_wrapper .contact__form__checkbox_label {
   font-size: 14px;
   line-height: 20px;
+  display: inline;
   color: rgba(0, 0, 0, 0.6); }
 .contact .contact__form .contact__form__check_wrapper .contact__form__checkbox_label:hover {
   cursor: pointer; }
@@ -163,6 +164,14 @@ body .container {
 .contact .contact__form input:checked ~ .contact__form__check_wrapper__fake_checkbox:after {
   display: block; }
 
+.link-more {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.9); }
+
+.link-more:hover {
+  cursor: pointer; }
+
 .contact .contact__form .contact__contact_form__submit {
   margin-top: 10px;
   background-color: #57A403;
@@ -193,7 +202,7 @@ body .container {
   float: right;
   top: -27px;
   left: 6px;
-  border: 1px solid gray;
+  border: 1px solid darkgrey;
   border-radius: 81%;
   text-align: center;
   font-size: 18px;

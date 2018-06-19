@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ContactTitle from './ContactTitle/ContactTitle';
 import Input from './ContactForm/Input';
-import Label from './ContactForm/Label'
+import Label from './ContactForm/Label';
+import Button from './ContactForm/Button';
 
 class Contact extends Component {
 
@@ -18,8 +19,8 @@ class Contact extends Component {
             ],
             checkboxs: [
                 {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie '},
-                {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie '},
-                {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam zgodę na przetwarzanieWyrażam zgodę na przetwarzanie'},
+                {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na otrzymywanie '},
+                {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów'},
             ]
         }
     }
@@ -32,8 +33,7 @@ class Contact extends Component {
                     name={input.name}
                     type={input.type}
                     id={input.name}
-                    classInput='form-control contact__form__input'
-                >
+                    classInput='form-control contact__form__input'>
                 </Input>
                 <Label key={index+'label'} classLabel={'contact__form__input_label'}>{input.label}</Label>
             </div>
@@ -41,13 +41,13 @@ class Contact extends Component {
             checbkox = this.state.checkboxs.map((checkbox,index) =>
                 <div className="form-check" key={index+'form-check'}>
                     <Label key={index+'label'} forLabel={checkbox.name} classLabel={'form-check-label contact__form__checkbox_label'}>{checkbox.label}</Label>
+                    <span className={'link-more'}> [ więcej ] </span>
                     <Input
                         key={index}
                         name={checkbox.name}
                         type={checkbox.type}
                         id={checkbox.name}
-                        classInput='form-check-input'
-                    >
+                        classInput='form-check-input' >
                     </Input>
                     <span className="contact__form__check_wrapper__fake_checkbox" key={index+'span'}></span>
                 </div>
@@ -66,7 +66,7 @@ class Contact extends Component {
                         <div className="contact__form__check_wrapper">
                             {checbkox}
                         </div>
-                        <button type="submit" className="btn btn-primary contact__contact_form__submit">Wyślij</button>
+                        <Button>WYŚLIJ</Button>
                     </form>
 
                 </section>
