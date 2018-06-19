@@ -104,6 +104,9 @@ body .container {
   box-shadow: none;
   padding-left: 5px;
   color: #000; }
+.contact .contact__form .danger {
+  border-bottom-color: red;
+}
 .contact .contact__form .contact__form__input:focus + .contact__form__input_label {
   display: none; }
 

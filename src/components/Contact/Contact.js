@@ -12,10 +12,10 @@ class Contact extends Component {
         this.state = {
             subtitle: 'Wypełnij, formularz, a Doradca z wybranego przez Ciebie banku skontaktuje się z Tobą i dopasuje oferte do Twoich potrzeb.',
             inputs: [
-                {name: 'name', type: 'text', label: 'Imię'},
-                {name: 'surname', type: 'text', label: 'Nazwisko'},
-                {name: 'phone', type: 'text', label: 'Telefon'},
-                {name: 'postCode', type: 'text', label: 'Kod pocztowy'}
+                {name: 'name', type: 'text', label: 'Imię', valid: true},
+                {name: 'surname', type: 'text', label: 'Nazwisko', valid: true},
+                {name: 'phone', type: 'text', label: 'Telefon', valid: true},
+                {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: true}
             ],
             checkboxs: [
                 {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie '},
@@ -25,7 +25,16 @@ class Contact extends Component {
         }
     }
 
+    onChangeInputValueHandler = (event, inputId) => {
+       const inputs = this.state.inputs;
+
+       event.target.value !== '' ? inputs[inputId].valid = true : inputs[inputId].valid = false;
+
+       this.setState({ inputs: inputs})
+    };
+
     render() {
+
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
@@ -33,9 +42,12 @@ class Contact extends Component {
                     name={input.name}
                     type={input.type}
                     id={input.name}
-                    classInput='form-control contact__form__input'>
+                    classInput={(! input.valid) ? 'form-control contact__form__input danger' : 'form-control contact__form__input'}
+                    change={(event)=> this.onChangeInputValueHandler(event,index )} >
                 </Input>
                 <Label key={index+'label'} classLabel={'contact__form__input_label'}>{input.label}</Label>
+                {(! input.valid) ? 'nie wysylam' : 'wysylam' }
+
             </div>
         ),
             checbkox = this.state.checkboxs.map((checkbox,index) =>
