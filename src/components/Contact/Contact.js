@@ -6,35 +6,79 @@ import Button from './ContactForm/Button';
 
 class Contact extends Component {
 
+
+
     constructor(props) {
         super(props);
+
 
         this.state = {
             subtitle: 'Wypełnij, formularz, a Doradca z wybranego przez Ciebie banku skontaktuje się z Tobą i dopasuje oferte do Twoich potrzeb.',
             inputs: [
-                {name: 'name', type: 'text', label: 'Imię', valid: true},
-                {name: 'surname', type: 'text', label: 'Nazwisko', valid: true},
-                {name: 'phone', type: 'text', label: 'Telefon', valid: true},
-                {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: true}
+                {name: 'name', type: 'text', label: 'Imię', valid: false, isValid: false},
+                {name: 'surname', type: 'text', label: 'Nazwisko', valid: false, isValid: false},
+                {name: 'phone', type: 'text', label: 'Telefon', valid: false, isValid: false},
+                {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: false, isValid: false}
             ],
             checkboxs: [
                 {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie '},
                 {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na otrzymywanie '},
                 {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów'},
-            ]
+            ],
+            // contactForm: {
+            //     name: {
+            //         elementType: 'input',
+            //         elementConfig: {
+            //             type: 'text',
+            //             label: 'Imię'
+            //         },
+            //         value: '',
+            //         valid: true
+            //     },
+            //     surname: {
+            //         elementType: 'input',
+            //         elementConfig: {
+            //             type: 'text',
+            //             label: 'Nazwisko'
+            //         },
+            //         value: '',
+            //         valid: true
+            //     },
+            //     phone: {
+            //         elementType: 'input',
+            //         elementConfig: {
+            //             type: 'text',
+            //             label: 'Telefon'
+            //         },
+            //         value: '',
+            //         valid: true
+            //     },
+            //     postCode: {
+            //         elementType: 'input',
+            //         elementConfig: {
+            //             type: 'text',
+            //             label: 'Kod pocztowy'
+            //         },
+            //         value: '',
+            //         valid: true
+            //     }
+            // }
         }
     }
 
     onChangeInputValueHandler = (event, inputId) => {
-       const inputs = this.state.inputs;
 
-       event.target.value !== '' ? inputs[inputId].valid = true : inputs[inputId].valid = false;
+        const inputs = this.state.inputs;
+        inputs[inputId].isValid = true;
 
-       this.setState({ inputs: inputs})
+        if (inputs[inputId].isValid) {
+            event.target.value !== '' ? inputs[inputId].valid = true : inputs[inputId].valid = false;
+        }
+        console.log(inputs)
+        this.setState({ inputs: inputs})
     };
 
     render() {
-
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
@@ -42,12 +86,12 @@ class Contact extends Component {
                     name={input.name}
                     type={input.type}
                     id={input.name}
-                    classInput={(! input.valid) ? 'form-control contact__form__input danger' : 'form-control contact__form__input'}
-                    change={(event)=> this.onChangeInputValueHandler(event,index )} >
+                    classInput={( (! input.valid) && (input.isValid) ) ? 'form-control contact__form__input danger ' : 'form-control contact__form__input '}
+                    change={(event)=> this.onChangeInputValueHandler(event,index )}
+                    click={(event)=> this.onChangeInputValueHandler(event,index)}
+                    >
                 </Input>
-                <Label key={index+'label'} classLabel={'contact__form__input_label'}>{input.label}</Label>
-                {(! input.valid) ? 'nie wysylam' : 'wysylam' }
-
+                <Label key={index+'label'} classLabel={(input.valid) ? 'contact__form__input_label contact__form__input_label_focused' : 'contact__form__input_label '}>{input.label}</Label>
             </div>
         ),
             checbkox = this.state.checkboxs.map((checkbox,index) =>

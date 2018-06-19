@@ -8,6 +8,7 @@ const Input = (props) => {
                className={props.classInput}
                id={props.name}
                onChange={props.change}
+               onClick={props.click}
                required />
     )
 };
