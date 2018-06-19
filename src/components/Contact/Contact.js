@@ -6,8 +6,6 @@ import Button from './ContactForm/Button';
 
 class Contact extends Component {
 
-
-
     constructor(props) {
         super(props);
 
@@ -79,7 +77,6 @@ class Contact extends Component {
     };
 
     render() {
-
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
