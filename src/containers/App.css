@@ -108,11 +108,15 @@ body .container {
 .contact .contact__form .danger {
   border-bottom-color: red;
 }
+.contact .contact__form .success {
+  border-bottom-color: green;
+}
+
 .contact .contact__form .contact__form__input:focus + .contact__form__input_label {
   top: -59px;
   font-size: 14px; }
 .contact__form__input_label_focused {
-  top: -59px !important;
+  top: -57px !important;
   font-size: 14px;
   color: red;
 }

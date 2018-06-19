@@ -74,11 +74,12 @@ class Contact extends Component {
         if (inputs[inputId].isValid) {
             event.target.value !== '' ? inputs[inputId].valid = true : inputs[inputId].valid = false;
         }
-        console.log(inputs)
+
         this.setState({ inputs: inputs})
     };
 
     render() {
+
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
@@ -86,7 +87,7 @@ class Contact extends Component {
                     name={input.name}
                     type={input.type}
                     id={input.name}
-                    classInput={( (! input.valid) && (input.isValid) ) ? 'form-control contact__form__input danger ' : 'form-control contact__form__input '}
+                    classInput={( (! input.valid) && (input.isValid) ) ? 'form-control contact__form__input danger ' : 'form-control contact__form__input'}
                     change={(event)=> this.onChangeInputValueHandler(event,index )}
                     click={(event)=> this.onChangeInputValueHandler(event,index)}
                     >
