@@ -7,6 +7,7 @@ import SecurityInfo from '../components/SecurityInfo/SecurityInfo';
 import Contact from '../components/Contact/Contact';
 import Footer from '../components/Footer/Footer'
 
+
 class App extends Component {
   render() {
     return (

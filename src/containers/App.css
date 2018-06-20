@@ -161,6 +161,15 @@ body .container {
   width: 15px;
   background-color: #FFF;
   border: 1px solid rgba(0, 0, 0, 0.15); }
+.checkbox-error {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #FFF;
+  border: 1px solid red;
+}
 .contact .contact__form .contact__form__check_wrapper .contact__form__check_wrapper__fake_checkbox:hover {
   cursor: pointer; }
 .contact .contact__form .contact__form__check_wrapper .contact__form__check_wrapper__fake_checkbox:after {

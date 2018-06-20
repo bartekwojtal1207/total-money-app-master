@@ -4,6 +4,7 @@ import Input from './ContactForm/Input';
 import Label from './ContactForm/Label';
 import Button from './ContactForm/Button';
 
+
 class Contact extends Component {
 
     constructor(props) {
@@ -19,14 +20,9 @@ class Contact extends Component {
                 {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: false, isValid: false}
             ],
             checkboxs: [
-                {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none' },
-                {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na otrzymywanie ',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
-                {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
-            ],
-            text: [
-                {id: 1, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
-                {id: 2, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
-                {id: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'}
+                {name: 'agreementConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na przetwarzanie',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none' },
+                {name: 'ofertsConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na otrzymywanie ',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
+                {name: 'contactConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
             ],
             formIsValid : false
             // contactForm: {
@@ -71,7 +67,6 @@ class Contact extends Component {
     }
 
     onChangeInputValueHandler = (event, inputId) => {
-
         const inputs = this.state.inputs;
         inputs[inputId].isValid = true;
 
@@ -81,27 +76,30 @@ class Contact extends Component {
         this.setState({ inputs: inputs})
     };
 
+    onChangeCheckboxHandler = (event, index) => {
+        const checkbox = this.state.checkboxs;
+        checkbox[index].isValid = true;
+        checkbox[index].value === 0 ? checkbox[index].value = 1 : checkbox[index].value = 0;
+
+        this.setState({ checkboxs: checkbox})
+    };
+
     showAgreements(event, index) {
         const agreements = this.state.checkboxs;
 
-        if (agreements[index].visibleText === 'block'  ) {
+        if (agreements[index].visibleText === 'block') {
             agreements[index].visibleText = 'none';
             agreements[index].textTitle = 'więcej';
         }else {
-             agreements[index].visibleText = 'block';
+            agreements[index].visibleText = 'block';
             agreements[index].textTitle = 'mniej';
         }
 
         this.setState({ checkboxs: agreements })
     }
 
-    checkValidate(event) {
-       let formIsValid = false;
-
-
-    }
-
     render() {
+
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
@@ -129,12 +127,12 @@ class Contact extends Component {
                         name={checkbox.name}
                         type={checkbox.type}
                         id={checkbox.name}
+                        change={(event)=> this.onChangeCheckboxHandler(event, index)}
                         classInput='form-check-input' >
                     </Input>
-                    <span className="contact__form__check_wrapper__fake_checkbox" key={index+'span'}></span>
+                    <span className={( (checkbox.value === 0) && (checkbox.isValid) ) ? 'checkbox-error' : 'contact__form__check_wrapper__fake_checkbox'} key={index+'span'}> </span>
                 </div>
         );
-
 
         return(
             <div>
