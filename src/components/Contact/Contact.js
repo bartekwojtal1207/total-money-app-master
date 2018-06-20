@@ -16,7 +16,7 @@ class Contact extends Component {
                 {name: 'name', type: 'text', label: 'Imię', valid: false, isValid: false},
                 {name: 'surname', type: 'text', label: 'Nazwisko', valid: false, isValid: false},
                 {name: 'phone', type: 'text', label: 'Telefon', valid: false, isValid: false},
-                {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: false, isValid: false}
+                {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: false, isValid: false},
             ],
             checkboxs: [
                 {name: 'agreementConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na przetwarzanie',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none' },
@@ -25,44 +25,6 @@ class Contact extends Component {
             ],
             formIsValid : false,
             errorMessage : 'pole jest wymagane'
-            // contactForm: {
-            //     name: {
-            //         elementType: 'input',
-            //         elementConfig: {
-            //             type: 'text',
-            //             label: 'Imię'
-            //         },
-            //         value: '',
-            //         valid: true
-            //     },
-            //     surname: {
-            //         elementType: 'input',
-            //         elementConfig: {
-            //             type: 'text',
-            //             label: 'Nazwisko'
-            //         },
-            //         value: '',
-            //         valid: true
-            //     },
-            //     phone: {
-            //         elementType: 'input',
-            //         elementConfig: {
-            //             type: 'text',
-            //             label: 'Telefon'
-            //         },
-            //         value: '',
-            //         valid: true
-            //     },
-            //     postCode: {
-            //         elementType: 'input',
-            //         elementConfig: {
-            //             type: 'text',
-            //             label: 'Kod pocztowy'
-            //         },
-            //         value: '',
-            //         valid: true
-            //     }
-            // }
         }
     }
 
@@ -78,11 +40,16 @@ class Contact extends Component {
 
     onChangeCheckboxHandler = (event, index) => {
         const checkbox = this.state.checkboxs;
+
         checkbox[index].isValid = true;
         checkbox[index].value === 0 ? checkbox[index].value = 1 : checkbox[index].value = 0;
 
         this.setState({ checkboxs: checkbox})
     };
+
+    onLabelInputClickHandler = (event, index) => {
+        // this.onChangeInputValueHandler(event, index)
+    }
 
     showAgreements(event, index) {
         const agreements = this.state.checkboxs;
@@ -109,12 +76,16 @@ class Contact extends Component {
                     id={input.name}
                     classInput={( (! input.valid) && (input.isValid) ) ? 'form-control contact__form__input danger ' : 'form-control contact__form__input'}
                     change={(event)=> this.onChangeInputValueHandler(event,index )}
-                    click={(event)=> this.onChangeInputValueHandler(event,index)}
-                    >
+                    click={(event)=> this.onChangeInputValueHandler(event,index)}>
                 </Input>
 
-                <Label key={index+'label'} classLabel={(input.valid) ? 'contact__form__input_label contact__form__input_label_focused' : 'contact__form__input_label '}>{input.label}</Label>
-                {((! input.valid) && (input.isValid) ) ?  <span className={'error-message'}> {this.state.errorMessage}</span> : ''}
+                <Label key={index+'label'}
+                       classLabel={(input.valid) ? 'contact__form__input_label contact__form__input_label_focused' : 'contact__form__input_label '}
+                       click={(event)=> this.onLabelInputClickHandler(event, index)}>
+                    {input.label}
+                </Label>
+
+                { ((! input.valid) && (input.isValid)) ?  <span className={'error-message'}> {this.state.errorMessage}</span> : '' }
             </div>
         ),
             checbkox = this.state.checkboxs.map((checkbox,index) =>
@@ -124,7 +95,6 @@ class Contact extends Component {
                         <span key={index + 'agreements'} className={ checkbox.visibleText === 'none' ? 'text-more-hidden' : 'text-more'}>
                             {checkbox.text}
                         </span>
-
                     <Input
                         key={index}
                         name={checkbox.name}
@@ -133,6 +103,7 @@ class Contact extends Component {
                         change={(event)=> this.onChangeCheckboxHandler(event, index)}
                         classInput='form-check-input' >
                     </Input>
+
                     <span className={( (checkbox.value === 0) && (checkbox.isValid) ) ? 'checkbox-error' : 'contact__form__check_wrapper__fake_checkbox'} key={index+'span'}> </span>
                 </div>
         );
