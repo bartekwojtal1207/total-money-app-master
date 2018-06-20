@@ -66,7 +66,6 @@ class Contact extends Component {
     }
 
     render() {
-
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
                 <Input
@@ -107,7 +106,9 @@ class Contact extends Component {
                     <span className={( (checkbox.value === 0) && (checkbox.isValid) ) ? 'checkbox-error' : 'contact__form__check_wrapper__fake_checkbox'} key={index+'span'}> </span>
                 </div>
         );
-
+        if ( (! input.valid) && (input.isValid) ) {
+            test.push('danger')
+        }
         return(
             <div>
                 <section className="col-md-12 contact">
