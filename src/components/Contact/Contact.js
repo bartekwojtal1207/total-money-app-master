@@ -19,10 +19,16 @@ class Contact extends Component {
                 {name: 'postCode', type: 'text', label: 'Kod pocztowy', valid: false, isValid: false}
             ],
             checkboxs: [
-                {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie '},
-                {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na otrzymywanie '},
-                {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów'},
+                {name: 'agreementConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanie',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none' },
+                {name: 'ofertsConsent', type: 'checkbox', label: 'Wyrażam zgodę na otrzymywanie ',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
+                {name: 'contactConsent', type: 'checkbox', label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
             ],
+            text: [
+                {id: 1, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
+                {id: 2, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
+                {id: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'}
+            ]
+
             // contactForm: {
             //     name: {
             //         elementType: 'input',
@@ -76,6 +82,14 @@ class Contact extends Component {
         this.setState({ inputs: inputs})
     };
 
+    showSubCattegory(event, index) {
+        const checkboxs = this.state.checkboxs;
+
+        checkboxs[index].visibleText === 'block' ?  checkboxs[index].visibleText = 'none' : checkboxs[index].visibleText = 'block';
+
+        this.setState({ checkboxs: checkboxs })
+    }
+
     render() {
         const input = this.state.inputs.map((input, index) =>
             <div className="form-group" key={index+'form-group'}>
@@ -95,7 +109,10 @@ class Contact extends Component {
             checbkox = this.state.checkboxs.map((checkbox,index) =>
                 <div className="form-check" key={index+'form-check'}>
                     <Label key={index+'label'} forLabel={checkbox.name} classLabel={'form-check-label contact__form__checkbox_label'}>{checkbox.label}</Label>
-                    <span className={'link-more'}> [ więcej ] </span>
+                    <span className={'link-more'} onClick={(event)=> this.showSubCattegory(event, index)}> [ {checkbox.textTitle} ] </span>
+                        <span key={index + 'agreements'} className={ checkbox.visibleText === 'none' ? 'text-more-hidden' : 'text-more'}>
+                            {checkbox.text}
+                        </span>
                     <Input
                         key={index}
                         name={checkbox.name}

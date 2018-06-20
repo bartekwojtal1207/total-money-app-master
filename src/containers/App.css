@@ -105,6 +105,9 @@ body .container {
   box-shadow: none;
   padding-left: 5px;
   color: #000; }
+
+.contact__form__input:focus { border-bottom-color: blue !important; }
+
 .contact .contact__form .danger {
   border-bottom-color: red;
 }
@@ -185,6 +188,13 @@ body .container {
 
 .link-more:hover {
   cursor: pointer; }
+.text-more {
+  display: block;
+  font-size: 10px;
+}
+.text-more-hidden {
+ display: none;
+}
 
 .contact .contact__form .contact__contact_form__submit {
   margin-top: 10px;
