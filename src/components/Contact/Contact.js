@@ -23,7 +23,8 @@ class Contact extends Component {
                 {name: 'ofertsConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na otrzymywanie ',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
                 {name: 'contactConsent', type: 'checkbox', value: 0, isValid: false, label: 'Wyrażam zgodę na przetwarzanieWyrażam urządzeń końcowych i automatycznych systemów',textTitle: 'więcej', text: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
             ],
-            formIsValid : false
+            formIsValid : false,
+            errorMessage : 'pole jest wymagane'
             // contactForm: {
             //     name: {
             //         elementType: 'input',
@@ -111,7 +112,9 @@ class Contact extends Component {
                     click={(event)=> this.onChangeInputValueHandler(event,index)}
                     >
                 </Input>
+
                 <Label key={index+'label'} classLabel={(input.valid) ? 'contact__form__input_label contact__form__input_label_focused' : 'contact__form__input_label '}>{input.label}</Label>
+                {((! input.valid) && (input.isValid) ) ?  <span className={'error-message'}> {this.state.errorMessage}</span> : ''}
             </div>
         ),
             checbkox = this.state.checkboxs.map((checkbox,index) =>
@@ -121,6 +124,7 @@ class Contact extends Component {
                         <span key={index + 'agreements'} className={ checkbox.visibleText === 'none' ? 'text-more-hidden' : 'text-more'}>
                             {checkbox.text}
                         </span>
+
                     <Input
                         key={index}
                         name={checkbox.name}

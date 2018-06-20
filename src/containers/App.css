@@ -129,6 +129,11 @@ body .container {
   z-index: 0;
   top: -30px;
   color: #495057; }
+.error-message {
+  font-size: 10px;
+  color: red;
+  float: right;
+}
 
 .contact .contact__form .contact__form__check_wrapper {
   margin-top: 20px;
