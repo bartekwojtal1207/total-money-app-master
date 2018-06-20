@@ -10,7 +10,6 @@ class Contact extends Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             subtitle: 'Wypełnij, formularz, a Doradca z wybranego przez Ciebie banku skontaktuje się z Tobą i dopasuje oferte do Twoich potrzeb.',
             inputs: [
@@ -116,9 +115,9 @@ class Contact extends Component {
             </div>
         ),
             checbkox = this.state.checkboxs.map((checkbox,index) =>
-                <div className="form-check" key={index+'form-check'}>
+                <div className={( (checkbox.value === 0) && (checkbox.isValid) ) ? 'form-check error-form-check' : 'form-check'} key={index+'form-check'}>
                     <Label key={index+'label'} forLabel={checkbox.name} classLabel={'form-check-label contact__form__checkbox_label'}>{checkbox.label}</Label>
-                    <span className={'link-more'} onClick={(event)=> this.showAgreements(event, index)}> [ {checkbox.textTitle} ] </span>
+                        <span className={'link-more'} onClick={(event)=> this.showAgreements(event, index)}> [ {checkbox.textTitle} ] </span>
                         <span key={index + 'agreements'} className={ checkbox.visibleText === 'none' ? 'text-more-hidden' : 'text-more'}>
                             {checkbox.text}
                         </span>
