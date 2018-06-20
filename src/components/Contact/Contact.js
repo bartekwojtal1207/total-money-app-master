@@ -27,8 +27,8 @@ class Contact extends Component {
                 {id: 1, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
                 {id: 2, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'},
                 {id: 3, text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae suscipit turpis, eu molestie arcu. Nullam vitae dui nec sem mattis auctor id vel tortor.', visibleText: 'none'}
-            ]
-
+            ],
+            formIsValid : false
             // contactForm: {
             //     name: {
             //         elementType: 'input',
@@ -78,16 +78,27 @@ class Contact extends Component {
         if (inputs[inputId].isValid) {
             event.target.value !== '' ? inputs[inputId].valid = true : inputs[inputId].valid = false;
         }
-
         this.setState({ inputs: inputs})
     };
 
-    showSubCattegory(event, index) {
-        const checkboxs = this.state.checkboxs;
+    showAgreements(event, index) {
+        const agreements = this.state.checkboxs;
 
-        checkboxs[index].visibleText === 'block' ?  checkboxs[index].visibleText = 'none' : checkboxs[index].visibleText = 'block';
+        if (agreements[index].visibleText === 'block'  ) {
+            agreements[index].visibleText = 'none';
+            agreements[index].textTitle = 'więcej';
+        }else {
+             agreements[index].visibleText = 'block';
+            agreements[index].textTitle = 'mniej';
+        }
 
-        this.setState({ checkboxs: checkboxs })
+        this.setState({ checkboxs: agreements })
+    }
+
+    checkValidate(event) {
+       let formIsValid = false;
+
+
     }
 
     render() {
@@ -109,7 +120,7 @@ class Contact extends Component {
             checbkox = this.state.checkboxs.map((checkbox,index) =>
                 <div className="form-check" key={index+'form-check'}>
                     <Label key={index+'label'} forLabel={checkbox.name} classLabel={'form-check-label contact__form__checkbox_label'}>{checkbox.label}</Label>
-                    <span className={'link-more'} onClick={(event)=> this.showSubCattegory(event, index)}> [ {checkbox.textTitle} ] </span>
+                    <span className={'link-more'} onClick={(event)=> this.showAgreements(event, index)}> [ {checkbox.textTitle} ] </span>
                         <span key={index + 'agreements'} className={ checkbox.visibleText === 'none' ? 'text-more-hidden' : 'text-more'}>
                             {checkbox.text}
                         </span>
@@ -132,12 +143,12 @@ class Contact extends Component {
                         Poznaj szczegóły oferty dla Ciebie <br />Już nawet w 10 minut !
                     </ContactTitle>
 
-                    <form action="#" className="contact__form">
+                    <form action="#" className="contact__form" onSubmit={(event)=> this.checkValidate(event)}>
                         {input}
                         <div className="contact__form__check_wrapper">
                             {checbkox}
                         </div>
-                        <Button>WYŚLIJ</Button>
+                        <Button >WYŚLIJ</Button>
                     </form>
 
                 </section>
